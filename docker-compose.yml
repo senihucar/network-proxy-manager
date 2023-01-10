@@ -2,7 +2,7 @@ version: '3.9'
 
 services:
   npm-app:
-    image: '$NPM_IMAGE_VERSION'
+    image: $NPM_IMAGE_VERSION
     restart: unless-stopped
     ports:
       # These ports are in format <host-port>:<container-port>
@@ -18,7 +18,7 @@ services:
       DB_MYSQL_USER: /run/secrets/mysql_user
       DB_MYSQL_PASSWORD: /run/secrets/mysql_user_password
       # Uncomment this if IPv6 is not enabled on your host
-      # DISABLE_IPV6: 'true'
+      DISABLE_IPV6: 'true'
     secrets:
       - mysql_user
       - mysql_user_password
@@ -30,7 +30,7 @@ services:
       - db
 
   npm-db:
-    image: '$DB_IMAGE_VERSION'
+    image: $DB_IMAGE_VERSION
     restart: unless-stopped
     environment:
       MYSQL_ROOT_PASSWORD: /run/secrets/mysql_root_password
@@ -48,7 +48,7 @@ services:
 volumes:
   npm-app-volume:
   npm-db-volume:
-      
+
 secrets:
   mysql_root_password:
     file: $SECRET_VAULT_DIR/mysql_root_password.txt
