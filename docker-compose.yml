@@ -13,8 +13,8 @@ services:
       # Add any other Stream port you want to expose
       - 21:21 # FTP
     environment:
-      DB_MYSQL_HOST: npm-mysql
-      DB_MYSQL_PORT: 3306
+      DB_MYSQL_HOST: npm-mysql #SQL APP docker service name
+      DB_MYSQL_PORT: 3306 #SQL APP TCP port number
       DB_MYSQL_NAME_FILE: /run/secrets/mysql_db_name
       DB_MYSQL_USER_FILE: /run/secrets/mysql_user
       DB_MYSQL_PASSWORD_FILE: /run/secrets/mysql_user_password
@@ -70,3 +70,13 @@ volumes:
 networks:
   proxynet:
     name: nginxproxyman
+    
+secrets:
+  mysql_root_password:
+    file: $SECRET_VAULT_DIR/mysql_root_password.txt
+  mysql_user:
+    file: $SECRET_VAULT_DIR/mysql_user.txt
+  mysql_user_password:
+    file: $SECRET_VAULT_DIR/mysql_user_password.txt
+  mysql_db_name:
+    file: $SECRET_VAULT_DIR/mysql_db_name.txt
